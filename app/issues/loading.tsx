@@ -4,7 +4,8 @@ import IssueStatusBadge from '../components/IssueStatusBadge'
 
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import IssueAction from './issueAction'
+import IssueAction from './IssueAction'
+
 
 
 const LoadingIssuePage = () => {
