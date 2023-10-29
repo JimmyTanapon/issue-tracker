@@ -7,7 +7,7 @@ import React from 'react'
 
 import IssueDetails from './IssueDetails'
 import EditissueButton from './EditIssueButton'
-import DeleteIssueButton from './edit/DeleteIssueButton'
+import DeleteIssueButton from './DeleteIssueButton'
 
 
 interface Props {
