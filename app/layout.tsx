@@ -31,7 +31,7 @@ export default function RootLayout({
             <Theme  appearance='light' accentColor='amber'  >
           <NavBar />
           <main className=' p-6'>
-            <Container>{children}</Container>
+           <Container> {children}</Container>
           </main>
         </Theme>
         </AuthProvider>
