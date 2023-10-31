@@ -16,6 +16,8 @@ model Issue {
   status Status @default(OPEN)
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
+  assignedToUserId  String? @db.VarChar(255)
+  assignedToUser User? @relation(fields: [assignedToUserId],references: [id])
 
 }
 enum Status {
@@ -60,6 +62,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  assignedIssues Issue[]
 }
 
 model VerificationToken {
