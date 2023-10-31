@@ -9,7 +9,7 @@ import {Skeleton} from '@/app/components'
 const AssigneeSelect = () => {
   const{data:users,error,isLoading}=  useQuery<User[]>({
         queryKey:['users'],
-        queryFn:()=>axios.get('/xapi/users').then(res=>res.data),
+        queryFn:()=>axios.get('/api/users').then(res=>res.data),
         staleTime:60 *1000, // 60s
         retry:3 //  if  api  not working will call api 3 time
      });
