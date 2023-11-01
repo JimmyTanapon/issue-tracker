@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import React, {  useEffect, useState } from 'react'
 import {Skeleton} from '@/app/components'
+import toast,{Toaster} from 'react-hot-toast'
 
 const AssigneeSelect = ({issue}:{issue:Issue}) => {
   const{data:users,error,isLoading}=  useQuery<User[]>({
@@ -28,30 +29,38 @@ const AssigneeSelect = ({issue}:{issue:Issue}) => {
 
      
     return (
-        <Select.Root 
-        defaultValue={issue.assignedToUserId || null }
-        onValueChange={(userId)=>{
-
-            axios.patch(`/api/issues/${issue.id}`,{
-                assignedToUserId:userId || null
-            })
-        }}>
-            <Select.Trigger placeholder='Assign...' />
-            <Select.Content>
-                <Select.Group>
-                    <Select.Label>
-                        Suggestions
-                    </Select.Label>
-                    <Select.Item value={null}>Unassigned</Select.Item>
-                    {users?.map((user) => {
-                        return (
-                            <Select.Item key={user.id} value={user.id}>{user.name}</Select.Item>
-                        )
-                    })}
-
-                </Select.Group>
-            </Select.Content>
-        </Select.Root>
+        <>
+            <Select.Root 
+            defaultValue={issue.assignedToUserId || null }
+            onValueChange={async(userId)=>{
+                try {
+              await  axios.patch(`/api/issues/${issue.id}`,{
+                                assignedToUserId:userId || null
+                            }) 
+                            toast.success(' Assigned Successfully !')
+                } catch (error) {
+                    toast.error('Changes colud not be saved.')
+                }
+                
+            }}>
+                <Select.Trigger placeholder='Assign...' />
+                <Select.Content>
+                    <Select.Group>
+                        <Select.Label>
+                            Suggestions
+                        </Select.Label>
+                        <Select.Item value={null}>Unassigned</Select.Item>
+                        {users?.map((user) => {
+                            return (
+                                <Select.Item key={user.id} value={user.id}>{user.name}</Select.Item>
+                            )
+                        })}
+    
+                    </Select.Group>
+                </Select.Content>
+            </Select.Root>
+            <Toaster/>
+        </>
     )
 }
 
