@@ -3,20 +3,15 @@ import { Issue, User } from '@prisma/client'
 import { Select } from '@radix-ui/themes'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import React, {  useEffect, useState } from 'react'
-import {Skeleton} from '@/app/components'
-import toast,{Toaster} from 'react-hot-toast'
+import React from 'react'
+import { Skeleton } from '@/app/components'
+import toast, { Toaster } from 'react-hot-toast'
 
-const AssigneeSelect = ({issue}:{issue:Issue}) => {
-  const{data:users,error,isLoading}=  useQuery<User[]>({
-        queryKey:['users'],
-        queryFn:()=>axios.get('/api/users').then(res=>res.data),
-        staleTime:60 *1000, // 60s
-        retry:3 //  if  api  not working will call api 3 time
-     });
-     if(isLoading) return <Skeleton/>
+const AssigneeSelect = ({ issue }: { issue: Issue }) => {
+    const { data: users, error, isLoading } =  useUser();
+     if (isLoading) return <Skeleton />
 
-     if(error) return null
+    if (error) return null
     // // const [users, setUsers] = useState<User[]>([])
     // useEffect(() => {
     //     const fetchUsers = async () => {
@@ -27,22 +22,22 @@ const AssigneeSelect = ({issue}:{issue:Issue}) => {
 
     // }, [])
 
-     
+    const assignedIssue = async (userId: string) => {
+        try {
+            await axios.patch(`/api/issues/${issue.id}`, {
+                assignedToUserId: userId || null
+            })
+            toast.success(' Assigned Successfully !')
+        } catch (error) {
+            toast.error('Changes colud not be saved.')
+        }
+    }
+
     return (
         <>
-            <Select.Root 
-            defaultValue={issue.assignedToUserId || null }
-            onValueChange={async(userId)=>{
-                try {
-              await  axios.patch(`/api/issues/${issue.id}`,{
-                                assignedToUserId:userId || null
-                            }) 
-                            toast.success(' Assigned Successfully !')
-                } catch (error) {
-                    toast.error('Changes colud not be saved.')
-                }
-                
-            }}>
+            <Select.Root
+                defaultValue={issue.assignedToUserId || null}
+                onValueChange={assignedIssue}>
                 <Select.Trigger placeholder='Assign...' />
                 <Select.Content>
                     <Select.Group>
@@ -55,13 +50,19 @@ const AssigneeSelect = ({issue}:{issue:Issue}) => {
                                 <Select.Item key={user.id} value={user.id}>{user.name}</Select.Item>
                             )
                         })}
-    
+
                     </Select.Group>
                 </Select.Content>
             </Select.Root>
-            <Toaster/>
+            <Toaster />
         </>
     )
 }
+const useUser = () => useQuery<User[]>({
+    queryKey: ['users'],
+    queryFn: () => axios.get('/api/users').then(res => res.data),
+    staleTime: 60 * 1000, // 60s
+    retry: 3 //  if  api  not working will call api 3 time
+});
 
 export default AssigneeSelect
