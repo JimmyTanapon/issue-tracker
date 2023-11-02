@@ -10,7 +10,7 @@ interface Props {
 
 }
 
-const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
+const Pagination = ({  pageSize, currentPage }: Props) => {
 
   const router = useRouter()
   const searchParams = useSearchParams()
