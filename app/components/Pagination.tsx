@@ -15,8 +15,8 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  const pageCount = Math.ceil(itemCount / pageSize)
-  if (pageCount <= 1) return null
+  // const pageCount = Math.ceil(itemCount / pageSize)
+  if (pageSize <= 1) return null
 
   const changePage = (page: number) => {
     const params = new URLSearchParams(searchParams);
@@ -41,7 +41,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
         <ChevronLeftIcon />
       </Button>
 
-      <Text>Page {currentPage} of {pageCount}</Text>
+      <Text>Page {currentPage} of {pageSize}</Text>
       <Button
         onClick={() => changePage(currentPage+1)}
 
@@ -50,7 +50,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
       </Button>
 
       <Button 
-       onClick={() => changePage(pageCount)}
+       onClick={() => changePage(pageSize)}
       color='gray' variant='soft' disabled={currentPage === pageSize}>
         <DoubleArrowRightIcon />
       </Button>

@@ -7,9 +7,15 @@ import { Issue, Status } from '@prisma/client'
 import NextLink from 'next/link'
 import { ArrowUpIcon } from '@radix-ui/react-icons'
 import { title } from 'process'
+import Pagination from '@/app/components/Pagination'
 
 interface Props {
-  searchParams: { status: Status, orderBy: keyof Issue }
+  searchParams: {
+    status: Status,
+    orderBy: keyof Issue,
+    page:string
+
+  }
 }
 
 const IssuesPage = async ({ searchParams }: Props) => {
@@ -24,6 +30,13 @@ const IssuesPage = async ({ searchParams }: Props) => {
 
     ]
   // const issues = await prisma.issue.findMany()
+
+    const page = parseInt(searchParams.page) || 1;
+    const pageSize =10;
+   
+
+
+
   const statuses = Object.values(Status)
   const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
 
@@ -33,13 +46,19 @@ const IssuesPage = async ({ searchParams }: Props) => {
     ? { [searchParams.orderBy]: 'asc' }
     : undefined
 
+  const where = {status}
+
   const issues = await prisma.issue.findMany({
-    where: {
-      status
-    },
-    orderBy
+    where,
+    orderBy,
+    skip:(page-1)*pageSize,
+    take:pageSize
 
   })
+  const issuesCount = await  prisma.issue.count({
+    where
+  })
+  const pageCount = Math.ceil(issuesCount / pageSize)
   return (
     <div>
       <IssueAction />
@@ -67,7 +86,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
             <Table.Row key={issue.id}>
               <Table.Cell>
 
-              <span className=' font-semibold'>  <Link href={`/issues/${issue.id}`} >{issue.title}</Link></span>
+                <span className=' font-semibold'>  <Link href={`/issues/${issue.id}`} >{issue.title}</Link></span>
                 <div className=' block md:hidden'>
                   <IssueStatusBadge status={issue.status} />
                 </div>
@@ -80,6 +99,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
           ))}
         </Table.Body>
       </Table.Root>
+      <Pagination currentPage={page} itemCount={issuesCount} pageSize={pageCount}/>
     </div>
   )
 }
