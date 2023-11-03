@@ -30,6 +30,7 @@ const IssueDetaillPage = async ({ params }: Props) => {
 
     return (
         <Grid columns={{ initial: '1', sm: '5' }} gap={'5'}>
+    
             <Box className='md:col-span-4 s'>
                 <IssueDetails issue={issue} />
             </Box>
@@ -45,3 +46,12 @@ const IssueDetaillPage = async ({ params }: Props) => {
 }
 
 export default IssueDetaillPage
+export async function generateMetadata({params}:Props){
+    const issue =await prisma.issue.findUnique({
+             where:{id:parseInt(params.id)}
+     })
+     return {
+         title:issue?.title,
+         discription:'Details of  issue'+ issue?.id
+     }
+ }
