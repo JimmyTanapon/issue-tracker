@@ -31,13 +31,13 @@ const Pagination = ({  pageSize, currentPage }: Props) => {
 
       <Button 
            onClick={() => changePage(1)}
-      color='gray' variant='soft' disabled={currentPage === 1}>
+      color='yellow' variant='soft' disabled={currentPage === 1}>
         <DoubleArrowLeftIcon />
       </Button>
 
       <Button
         onClick={() => changePage(currentPage-1)}
-        color='gray' variant='soft' disabled={currentPage === 1}>
+        color='gold' variant='soft' disabled={currentPage === 1}>
         <ChevronLeftIcon />
       </Button>
 
@@ -45,13 +45,13 @@ const Pagination = ({  pageSize, currentPage }: Props) => {
       <Button
         onClick={() => changePage(currentPage+1)}
 
-        color='gray' variant='soft' disabled={currentPage === pageSize}>
+        color='yellow' variant='soft' disabled={currentPage === pageSize}>
         <ChevronRightIcon />
       </Button>
 
       <Button 
        onClick={() => changePage(pageSize)}
-      color='gray' variant='soft' disabled={currentPage === pageSize}>
+      color='yellow' variant='soft' disabled={currentPage === pageSize}>
         <DoubleArrowRightIcon />
       </Button>
     </Flex>

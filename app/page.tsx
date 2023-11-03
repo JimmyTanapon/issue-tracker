@@ -1,9 +1,7 @@
-import Pagination from "./components/Pagination";
+import LatestLssues from "./LatestLssues";
 
-export default function Home({searchParams}:{searchParams:{page:string}}) {
+export default function Home() {
   return (
-   <div>
-    <h1>Hello</h1>
-   </div>
+   <LatestLssues/>
   )
 }
