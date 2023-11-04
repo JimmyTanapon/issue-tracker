@@ -6,18 +6,24 @@ import axios from 'axios'
 import React from 'react'
 import { Skeleton } from '@/app/components'
 import toast, { Toaster } from 'react-hot-toast'
+import StatusSelect from './StatusSelect'
+
+
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
-    const { data: users, error, isLoading } =  useUser();
-     if (isLoading) return <Skeleton />
+    const { data: users, error, isLoading } = useUser();
+    if (isLoading) return <Skeleton />
 
     if (error) return null
 
 
     const assignedIssue = async (userId: string) => {
+        let ChageStatus = 'IN_PROGRESS'
+        if (userId === null) ChageStatus = 'OPEN'
         try {
             await axios.patch(`/api/issues/${issue.id}`, {
-                assignedToUserId: userId || null
+                assignedToUserId: userId || null,
+                status: ChageStatus
             })
             toast.success(' Assigned Successfully !')
         } catch (error) {
@@ -27,6 +33,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
     return (
         <>
+
             <Select.Root
                 defaultValue={issue.assignedToUserId || null}
                 onValueChange={assignedIssue}>
@@ -46,6 +53,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
                     </Select.Group>
                 </Select.Content>
             </Select.Root>
+
             <Toaster />
         </>
     )

@@ -10,12 +10,13 @@ import EditissueButton from './EditIssueButton'
 import DeleteIssueButton from './DeleteIssueButton'
 import { getServerSession } from 'next-auth'
 import AssigneeSelect from './AssigneeSelect'
+import StatusSelect from './StatusSelect'
 
 
 interface Props {
     params: { id: string }
 }
-const fetchUser = cache( (issueId: number) =>  prisma.issue.findUnique({where: { id:issueId } }))
+const fetchUser = cache((issueId: number) => prisma.issue.findUnique({ where: { id: issueId } }))
 
 const IssueDetaillPage = async ({ params }: Props) => {
     const session = await getServerSession()
@@ -27,6 +28,7 @@ const IssueDetaillPage = async ({ params }: Props) => {
         notFound()
     }
 
+
     return (
         <Grid columns={{ initial: '1', sm: '5' }} gap={'5'}>
 
@@ -35,6 +37,8 @@ const IssueDetaillPage = async ({ params }: Props) => {
             </Box>
             {session && (<Box>
                 <Flex direction={'column'} gap={'4'}>
+                    <StatusSelect issueStatus={issue} />
+
                     <AssigneeSelect issue={issue} />
                     <EditissueButton issueId={issue.id} />
                     <DeleteIssueButton issueId={issue.id} />

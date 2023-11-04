@@ -1,5 +1,6 @@
+
 import { Status ,Issue} from '@prisma/client'
-import { Badge } from '@radix-ui/themes'
+import { Badge, Select } from '@radix-ui/themes'
 import React from 'react'
 
 
@@ -20,6 +21,7 @@ Status,
 const IssueStatusBadge = ({status}:{status:Status}) => {
 
   return (
+
     <Badge color={statusMap[status].color}>
         {statusMap[status].lable}
     </Badge>
