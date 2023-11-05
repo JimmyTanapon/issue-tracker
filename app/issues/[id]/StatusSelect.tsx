@@ -13,11 +13,11 @@ interface Props {
 }
 
 const StatusSelect = async ({ issueStatus }: Props) => {
-
+    const router=useRouter()
 
 
     const ChangeStatus = async (stutus: string) => {
-            const router=useRouter()
+          
 
         try {
             await axios.patch(`/api/issues/${issueStatus.id}`, {

@@ -13,13 +13,14 @@ import { useRouter } from 'next/navigation'
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     const { data: users, error, isLoading } = useUser();
+    const router=useRouter()
     if (isLoading) return <Skeleton />
 
     if (error) return null
 
 
     const assignedIssue = async (userId: string) => {
-        const router=useRouter()
+    
 
         let ChageStatus = 'IN_PROGRESS'
         if (userId === 'unassigned') ChageStatus = 'OPEN'
