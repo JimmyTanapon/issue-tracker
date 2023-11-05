@@ -22,7 +22,7 @@ export default async function Home() {
         <IssuesChart open={openStatusCont} closed={ClosedStatusCont} inProgress={InProgressStatusCont} />
       </Flex>
 
-      <LatestIssues />
+   
      
 
 
