@@ -22,7 +22,7 @@ const IssueStatusFilter = () => {
 
     return (
         <Select.Root 
-        defaultValue={searchParams.get('status')}
+        defaultValue={searchParams.get('status')|| 'unassigned'}
         onValueChange={(status)=>{
             const params = new URLSearchParams();
             console.log('urlparams',params)
@@ -42,7 +42,7 @@ const IssueStatusFilter = () => {
             <Select.Content>
               {
                 statuses.map((status)=>(
-                    <Select.Item  key={status.value} value={status.value || null}>{status.label}</Select.Item>
+                    <Select.Item  key={status.value} value={status.value || 'unassigned'}>{status.label}</Select.Item>
                 ))
               }
             </Select.Content>
