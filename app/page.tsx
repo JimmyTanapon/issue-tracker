@@ -11,7 +11,7 @@ export default async function Home() {
   const InProgressStatusCont = await prisma.issue.count({ where: { status: 'IN_PROGRESS' } })
   const ClosedStatusCont = await prisma.issue.count({ where: { status: 'CLOSED' } })
 
-  console.log("summary",openStatusCont,InProgressStatusCont,ClosedStatusCont)
+
 
   return (
     <Grid columns={{ initial: '1', md: '2' }} gap={'5'} align={'center'} justify={'center'}>
