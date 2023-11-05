@@ -27,7 +27,7 @@ const StatusSelect = async ({ issueStatus }: Props) => {
             router.refresh()
         } catch (error) {
             toast.error('Changes colud not be saved.')
-            router.refresh()
+          
         }
     }
 
