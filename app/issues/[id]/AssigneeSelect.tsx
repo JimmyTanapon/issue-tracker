@@ -19,7 +19,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
     const assignedIssue = async (userId: string) => {
         let ChageStatus = 'IN_PROGRESS'
-        if (userId === "unassigned") ChageStatus = 'OPEN'
+        if (userId === null) ChageStatus = 'OPEN'
         try {
             await axios.patch(`/api/issues/${issue.id}`, {
                 assignedToUserId: userId || null,
@@ -35,7 +35,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
         <>
 
             <Select.Root
-                defaultValue={issue.assignedToUserId || "unassigned"}
+                defaultValue={issue.assignedToUserId || null}
                 onValueChange={assignedIssue}>
                 <Select.Trigger placeholder='Assign...' />
                 <Select.Content>
@@ -43,7 +43,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
                         <Select.Label>
                             Suggestions
                         </Select.Label>
-                        <Select.Item value={"unassigned"}>Unassigned</Select.Item>
+                        <Select.Item value={null}>Unassigned</Select.Item>
                         {users?.map((user) => {
                             return (
                                 <Select.Item key={user.id} value={user.id}>{user.name}</Select.Item>
