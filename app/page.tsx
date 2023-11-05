@@ -11,14 +11,15 @@ export default async function Home() {
   const InProgressStatusCont = await prisma.issue.count({ where: { status: 'IN_PROGRESS' } })
   const ClosedStatusCont = await prisma.issue.count({ where: { status: 'CLOSED' } })
 
+  console.log(openStatusCont,InProgressStatusCont,ClosedStatusCont)
 
   return (
     <Grid columns={{ initial: '1', md: '2' }} gap={'5'} align={'center'} justify={'center'}>
       <Flex direction={'column'} gap={'5'}>
-        <IssuesSummary open={openStatusCont} closed={InProgressStatusCont} inProgress={ClosedStatusCont} />
+        <IssuesSummary open={openStatusCont} closed={ClosedStatusCont} inProgress={InProgressStatusCont} />
   
   
-        <IssuesChart open={openStatusCont} closed={InProgressStatusCont} inProgress={ClosedStatusCont} />
+        <IssuesChart open={openStatusCont} closed={ClosedStatusCont} inProgress={InProgressStatusCont} />
       </Flex>
 
       <LatestIssues />
