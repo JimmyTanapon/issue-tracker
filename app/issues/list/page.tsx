@@ -53,7 +53,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
     </Flex >
   )
 }
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 
 export const  metadata:Metadata ={
   title:'Issue Tracker - Issue List',
