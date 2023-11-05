@@ -23,7 +23,7 @@ export default async function Home() {
       </Flex>
 
       <LatestIssues />
-      <LatestIssues />
+     
 
 
     </Grid>
