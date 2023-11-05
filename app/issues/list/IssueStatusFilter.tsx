@@ -22,7 +22,7 @@ const IssueStatusFilter = () => {
 
     return (
         <Select.Root 
-        defaultValue={searchParams.get('status')}
+        defaultValue={searchParams.get('status')|| ''}
         onValueChange={(status)=>{
             const params = new URLSearchParams();
             console.log('urlparams',params)
