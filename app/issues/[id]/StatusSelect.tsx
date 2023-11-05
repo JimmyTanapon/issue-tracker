@@ -4,6 +4,7 @@ import { Select } from '@radix-ui/themes'
 import React from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 
 
 interface Props {
@@ -16,13 +17,14 @@ const StatusSelect = async ({ issueStatus }: Props) => {
 
 
     const ChangeStatus = async (stutus: string) => {
-
+            const router=useRouter()
 
         try {
             await axios.patch(`/api/issues/${issueStatus.id}`, {
                 status: stutus
             })
             toast.success(' Change Stauts Successfully !')
+            router.refresh()
         } catch (error) {
             toast.error('Changes colud not be saved.')
         }
