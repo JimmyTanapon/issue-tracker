@@ -42,7 +42,7 @@ const IssueStatusFilter = () => {
             <Select.Content>
               {
                 statuses.map((status)=>(
-                    <Select.Item value={status.value || null}>{status.label}</Select.Item>
+                    <Select.Item  key={status.value} value={status.value || null}>{status.label}</Select.Item>
                 ))
               }
             </Select.Content>

@@ -34,7 +34,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
                 </AlertDialog.Trigger>
                 <AlertDialog.Content>
                     <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
-                    <AlertDialog.Description>Are you sure  you wannt to delete this issue ? This action  it can't be undone.</AlertDialog.Description>
+                    <AlertDialog.Description>Are you sure  you wannt to delete this issue ? This action  it canot be undone.</AlertDialog.Description>
                     <Flex mt={'4'} gap={'4'}>
                         <AlertDialog.Cancel>
                             <Button variant='soft' color='gray'>Cancel</Button>
