@@ -7,17 +7,21 @@ import React from 'react'
 import { Skeleton } from '@/app/components'
 import toast, { Toaster } from 'react-hot-toast'
 import StatusSelect from './StatusSelect'
+import { useRouter } from 'next/navigation'
 
 
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     const { data: users, error, isLoading } = useUser();
+    const router=useRouter()
     if (isLoading) return <Skeleton />
 
     if (error) return null
 
 
     const assignedIssue = async (userId: string) => {
+    
+
         let ChageStatus = 'IN_PROGRESS'
         if (userId === 'unassigned') ChageStatus = 'OPEN'
         try {
@@ -26,6 +30,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
                 status: ChageStatus
             })
             toast.success(' Assigned Successfully !')
+            router.refresh()
         } catch (error) {
             toast.error('Changes colud not be saved.')
         }
