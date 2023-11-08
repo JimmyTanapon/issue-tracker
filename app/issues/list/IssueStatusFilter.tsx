@@ -25,13 +25,13 @@ const IssueStatusFilter = () => {
         defaultValue={searchParams.get('status') || 'unassigned'}
         onValueChange={(status)=>{
             const params = new URLSearchParams();
-            console.log('urlparams',params)
+           
             if(status) params.append('status',status)
 
-            console.log('urlparams2',params)
+           
             if(searchParams.get('orderBy')) params.append('orderBy',searchParams.get('orderBy')!)
 
-            console.log('urlparams2',params.toString())
+          
 
             const query =  params.size ? '?'+params.toString():''
 
@@ -42,7 +42,7 @@ const IssueStatusFilter = () => {
             <Select.Content>
               {
                 statuses.map((status)=>(
-                    <Select.Item  key={status.value} value={status.value || 'unassigned'}>{status.label}</Select.Item>
+                    <Select.Item  key={status.label} value={status.value || 'unassigned'}>{status.label}</Select.Item>
                 ))
               }
             </Select.Content>
