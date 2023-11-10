@@ -13,20 +13,25 @@ import { useRouter } from 'next/navigation'
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     const { data: users, error, isLoading } = useUser();
-    const router=useRouter()
+    const router = useRouter()
     if (isLoading) return <Skeleton />
 
     if (error) return null
 
 
-    const assignedIssue = async (userId: string) => {
-    
+    const assignedIssue = async (userId: string | null) => {
+
 
         let ChageStatus = 'IN_PROGRESS'
-        if (userId === 'unassigned') ChageStatus = 'OPEN'
+        if (userId === 'unassigned') {
+            userId = null
+            ChageStatus = 'OPEN'
+        }
+
+
         try {
             await axios.patch(`/api/issues/${issue.id}`, {
-                assignedToUserId: userId || null,
+                assignedToUserId: userId,
                 status: ChageStatus
             })
             toast.success(' Assigned Successfully !')
@@ -40,7 +45,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
         <>
 
             <Select.Root
-                defaultValue={issue.assignedToUserId || 'unassigned'}
+             value={issue.assignedToUserId || 'unassigned'}
                 onValueChange={assignedIssue}>
                 <Select.Trigger placeholder='Assign...' />
                 <Select.Content>

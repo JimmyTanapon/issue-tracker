@@ -53,6 +53,6 @@ export async function generateMetadata({ params }: Props) {
     const issue = await fetchUser(parseInt(params.id))
     return {
         title: issue?.title,
-        discription: 'Details of  issue' + issue?.id
+        description: 'Details of  issue' + issue?.id
     }
 }
