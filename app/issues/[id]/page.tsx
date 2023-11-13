@@ -13,6 +13,7 @@ import AssigneeSelect from './AssigneeSelect'
 import StatusSelect from './StatusSelect'
 import dynamic from 'next/dynamic'
 import IssueFormSkeleton from '../_components/IssueFormSkeleton'
+import BlogComment from './BlogComment'
 
 
 interface Props {
@@ -29,12 +30,13 @@ const IssueBlog = dynamic(() => import('@/app/issues/_components/IssueBlog'),
 const IssueDetaillPage = async ({ params }: Props) => {
     const session = await getServerSession()
 
-    // if(typeof params.id !== 'number') notFound();
 
+    // if(typeof params.id !== 'number') notFound();
     const issue = await fetchUser(parseInt(params.id))
     if (!issue) {
         notFound()
     }
+
 
 
     return (
@@ -42,9 +44,9 @@ const IssueDetaillPage = async ({ params }: Props) => {
 
             <Box className='md:col-span-4 s'>
                 <IssueDetails issue={issue} />
-              
+                <BlogComment issueId={issue.id} />
                 <IssueBlog />
-              
+
             </Box>
 
             {session && (<Box>
