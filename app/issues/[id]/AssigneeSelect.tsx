@@ -74,5 +74,7 @@ const useUser = () => useQuery<User[]>({
     staleTime: 60 * 1000, // 60s
     retry: 3 //  if  api  not working will call api 3 time
 });
+export const dynamic = 'force-dynamic'
+
 
 export default AssigneeSelect
