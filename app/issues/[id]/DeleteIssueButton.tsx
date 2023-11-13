@@ -24,41 +24,6 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
 
     }
     return (
-        // <>
-        //     <AlertDialog.Root>
-        //         <AlertDialog.Trigger>
-        //             <Button color='crimson' disabled={isDeleting}>
-        //                 {isDeleting && <Spinner />}
-        //                 Delete Issue
-        //             </Button>
-        //         </AlertDialog.Trigger>
-        //         <AlertDialog.Content>
-        //             <AlertDialog.Title>Confirm Deletion</AlertDialog.Title>
-        //             <AlertDialog.Description>Are you sure  you wannt to delete this issue ? This action  it canot be undone.</AlertDialog.Description>
-        //             <Flex mt={'4'} gap={'4'}>
-        //                 <AlertDialog.Cancel>
-        //                     <Button variant='soft' color='gray'>Cancel</Button>
-        //                 </AlertDialog.Cancel>
-        //                 <AlertDialog.Action>
-        //                     <Button color='red'  variant='soft' onClick={deleteIssue}>Delete Issue</Button>
-        //                 </AlertDialog.Action>
-        //             </Flex>
-        //         </AlertDialog.Content>
-        //     </AlertDialog.Root>
-
-        //     <AlertDialog.Root open={error}>
-        //         <AlertDialog.Content>
-        //             <AlertDialog.Title>Error</AlertDialog.Title>
-        //             <AlertDialog.Description>This issue could not be  deleted.</AlertDialog.Description>
-        //             <AlertDialog.Cancel>
-        //                 <Button variant='soft' color='gray' mt={'2'} onClick={() => setError(false)}>OK</Button>
-        //             </AlertDialog.Cancel>
-
-
-        //         </AlertDialog.Content>
-        //     </AlertDialog.Root>
-            
-        // </>
         <>
         
         <AlertDialog.Root>

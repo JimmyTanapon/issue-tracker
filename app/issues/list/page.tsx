@@ -7,6 +7,7 @@ import IssueTable, { IssueQuery } from './IssueTable'
 import { columnsNames } from './IssueTable'
 import { Flex } from '@radix-ui/themes'
 import { Metadata } from 'next'
+import { SelectPage } from '@/app/components'
 
 
 interface Props {
@@ -14,6 +15,8 @@ interface Props {
 
   
 }
+
+
 
 const IssuesPage = async ({ searchParams }: Props) => {
 
@@ -28,8 +31,9 @@ const IssuesPage = async ({ searchParams }: Props) => {
   const statuses = Object.values(Status)
   const status = statuses.includes(searchParams.status) ? searchParams.status : undefined;
 
+
   const orderBy = columnsNames.includes(searchParams.orderBy)
-    ? { [searchParams.orderBy]: 'asc' }
+    ? { [searchParams.orderBy]:searchParams.sortBy}
     : undefined
 
   const where = { status }
@@ -50,6 +54,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
       <IssueAction />
       <IssueTable searchParams={searchParams} issues={issues} />
       <Pagination currentPage={page} itemCount={issuesCount} pageSize={pageCount} />
+   
     </Flex >
   )
 }

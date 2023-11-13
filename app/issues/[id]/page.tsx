@@ -11,12 +11,20 @@ import DeleteIssueButton from './DeleteIssueButton'
 import { getServerSession } from 'next-auth'
 import AssigneeSelect from './AssigneeSelect'
 import StatusSelect from './StatusSelect'
+import dynamic from 'next/dynamic'
+import IssueFormSkeleton from '../_components/IssueFormSkeleton'
 
 
 interface Props {
     params: { id: string }
 }
 const fetchUser = cache((issueId: number) => prisma.issue.findUnique({ where: { id: issueId } }))
+
+const IssueBlog = dynamic(() => import('@/app/issues/_components/IssueBlog'),
+    {
+        ssr: false,
+        loading: () => <IssueFormSkeleton />
+    })
 
 const IssueDetaillPage = async ({ params }: Props) => {
     const session = await getServerSession()
@@ -34,7 +42,11 @@ const IssueDetaillPage = async ({ params }: Props) => {
 
             <Box className='md:col-span-4 s'>
                 <IssueDetails issue={issue} />
+              
+                <IssueBlog />
+              
             </Box>
+
             {session && (<Box>
                 <Flex direction={'column'} gap={'4'}>
                     <StatusSelect issueStatus={issue} />
@@ -42,8 +54,13 @@ const IssueDetaillPage = async ({ params }: Props) => {
                     <AssigneeSelect issue={issue} />
                     <EditissueButton issueId={issue.id} />
                     <DeleteIssueButton issueId={issue.id} />
+
+
                 </Flex>
+
             </Box>)}
+
+
         </Grid>
     )
 }
@@ -53,6 +70,6 @@ export async function generateMetadata({ params }: Props) {
     const issue = await fetchUser(parseInt(params.id))
     return {
         title: issue?.title,
-        discription: 'Details of  issue' + issue?.id
+        description: 'Details of  issue' + issue?.id
     }
 }

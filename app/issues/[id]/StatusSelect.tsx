@@ -45,7 +45,7 @@ const StatusSelect = async ({ issueStatus }: Props) => {
 
     return (
         <Select.Root
-            defaultValue={issueStatus.status}
+          value={issueStatus.status}
             onValueChange={ChangeStatus}
         >
             <Select.Trigger />

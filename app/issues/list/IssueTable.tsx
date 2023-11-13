@@ -1,16 +1,17 @@
 import { IssueStatusBadge } from '@/app/components'
 import { Issue, Status } from '@prisma/client'
-import { ArrowUpIcon } from '@radix-ui/react-icons'
+import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons'
 import { Table } from '@radix-ui/themes'
-import {Link} from '@/app/components'
+import { Link } from '@/app/components'
 import React from 'react'
 import NextLink from 'next/link'
 
 
-export interface  IssueQuery {
+export interface IssueQuery {
     status: Status,
     orderBy: keyof Issue,
     page: string
+    sortBy: 'asc' | 'desc'
 }
 
 interface Props {
@@ -23,7 +24,8 @@ interface Props {
 const IssueTable = ({ searchParams, issues }: Props) => {
 
 
-
+    let sortby = 'asc'
+    if (searchParams.sortBy === sortby) sortby = 'desc'
 
     return (
         <Table.Root variant='surface'>
@@ -34,10 +36,16 @@ const IssueTable = ({ searchParams, issues }: Props) => {
 
 
                             <NextLink href={{
-                                query: { ...searchParams, orderBy: column.value }
+
+                                query: { ...searchParams, orderBy: column.value, sortBy: sortby }
                             }}> {column.label}
                             </NextLink>
-                            {column.value === searchParams.orderBy && <ArrowUpIcon className='  inline' />}
+                            {column.value === searchParams.orderBy ?
+                                sortby === 'asc' ?
+                                    <ArrowUpIcon className='  inline' />
+                                    : <ArrowDownIcon className='  inline' />
+                                : ""
+                            }
 
                         </Table.ColumnHeaderCell>
                     ))}
@@ -76,6 +84,6 @@ const columns: {
         { label: 'Status', value: 'status', className: 'hidden md:table-cell' },
         { label: 'Created', value: 'createAt', className: 'hidden md:table-cell' }
 
-]
+    ]
 
-export  const  columnsNames = columns.map((column)=>column.value)
+export const columnsNames = columns.map((column) => column.value)
