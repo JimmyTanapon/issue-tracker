@@ -1,7 +1,7 @@
 import prisma from '@/prisma/client'
 import { Heading, Flex, Card, Text, Avatar, Inset, Strong, Separator, Box, Theme } from '@radix-ui/themes'
 import React from 'react'
-import ReactMarkdown from 'react-markdown'
+
 
 
 
@@ -49,5 +49,5 @@ const BlogComment = async ({ issueId }: { issueId: number }) => {
         </div>
     )
 }
-
+export const dynamic = 'force-dynamic'
 export default BlogComment

@@ -29,8 +29,12 @@ const IssueBlog = dynamic(() => import('@/app/issues/_components/IssueBlog'),
 
 const IssueDetaillPage = async ({ params }: Props) => {
     const session = await getServerSession()
-
-
+  
+    const userEmail = session?.user?.email
+    const getUserId =await prisma.user.findUnique({
+        where:{email:userEmail!}
+    })
+  
     // if(typeof params.id !== 'number') notFound();
     const issue = await fetchUser(parseInt(params.id))
     if (!issue) {
@@ -44,8 +48,9 @@ const IssueDetaillPage = async ({ params }: Props) => {
 
             <Box className='md:col-span-4 s'>
                 <IssueDetails issue={issue} />
+                <IssueBlog  params={params} session={getUserId}/>
                 <BlogComment issueId={issue.id} />
-                <IssueBlog />
+               
 
             </Box>
 
@@ -67,7 +72,9 @@ const IssueDetaillPage = async ({ params }: Props) => {
     )
 }
 
+
 export default IssueDetaillPage
+
 export async function generateMetadata({ params }: Props) {
     const issue = await fetchUser(parseInt(params.id))
     return {

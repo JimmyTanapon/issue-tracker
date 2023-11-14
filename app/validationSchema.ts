@@ -11,7 +11,6 @@ const statusTypeSchema = z.union([
   z.literal('IN_PROGRESS'),
   z.literal('CLOSED'),
 ]);
-// type PaymentType = z.infer<typeof PaymentTypeSchema>;
 
 
 export const pathIssueSchema = z.object({
@@ -29,3 +28,19 @@ export const pathIssueSchema = z.object({
     .optional()
     .nullable(),
 });
+
+export const  commentSchema = z.object({
+  userId: z
+  .string()
+  .min(1, " Please log in before comment.")
+  .max(225),
+  content:z.string()
+  .min(1, "comment is required")
+  .max(65535),
+})
+
+export const  commentSchemaForm = z.object({
+  content:z.string()
+  .min(1, "comment is required")
+  .max(65535),
+})
