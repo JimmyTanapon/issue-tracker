@@ -6,20 +6,21 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
 model Issue {
-  id               Int      @id @default(autoincrement())
-  title            String   @db.VarChar(255) // varchar(191)
-  description      String   @db.Text
-  status           Status   @default(OPEN)
-  createAt         DateTime @default(now())
-  updateAt         DateTime @updatedAt
-  assignedToUserId String?  @db.VarChar(255)
-  assignedToUser   User?    @relation(fields: [assignedToUserId], references: [id])
+  id               Int       @id @default(autoincrement())
+  title            String    @db.VarChar(255) // varchar(191)
+  description      String    @db.Text
+  status           Status    @default(OPEN)
+  createAt         DateTime  @default(now())
+  updateAt         DateTime  @updatedAt
+  assignedToUserId String?   @db.VarChar(255)
+  assignedToUser   User?     @relation(fields: [assignedToUserId], references: [id])
+  comments         Comment[]
 }
 
 enum Status {
@@ -64,6 +65,7 @@ model User {
   accounts       Account[]
   sessions       Session[]
   assignedIssues Issue[]
+  Comment        Comment[]
 }
 
 model VerificationToken {
@@ -72,4 +74,15 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Comment {
+  id     Int    @id @default(autoincrement())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  content   String    @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  issueId   Int // This field is used to establish the relationship with the Issue model
+  issue     Issue    @relation(fields: [issueId], references: [id],onDelete: Cascade)
 }
