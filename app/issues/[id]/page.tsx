@@ -1,6 +1,6 @@
 
 import prisma from '@/prisma/client'
-import { Box, Flex, Grid } from '@radix-ui/themes'
+import { Box, Container, Flex, Grid, Separator } from '@radix-ui/themes'
 import { notFound } from 'next/navigation'
 
 import React, { cache } from 'react'
@@ -29,12 +29,12 @@ const IssueBlog = dynamic(() => import('@/app/issues/_components/IssueBlog'),
 
 const IssueDetaillPage = async ({ params }: Props) => {
     const session = await getServerSession()
-  
+
     const userEmail = session?.user?.email
-    const getUserId =await prisma.user.findUnique({
-        where:{email:userEmail!}
+    const getUserId = await prisma.user.findUnique({
+        where: { email: userEmail! }
     })
-  
+
     // if(typeof params.id !== 'number') notFound();
     const issue = await fetchUser(parseInt(params.id))
     if (!issue) {
@@ -44,31 +44,32 @@ const IssueDetaillPage = async ({ params }: Props) => {
 
 
     return (
-        <Grid columns={{ initial: '1', sm: '5' }} gap={'5'}>
+        <Container>
+            <Grid columns={{ initial: '1', sm: '5' }} gap={'5'}>
 
-            <Box className='md:col-span-4 s'>
-                <IssueDetails issue={issue} />
-                <IssueBlog  params={params} session={getUserId}/>
-                <BlogComment issueId={issue.id} />
-               
+                <Box className='md:col-span-4 s'>
+                    <IssueDetails issue={issue} />
+                    <BlogComment issueId={issue.id} />
+                    <Separator className="SeparatorRoot" style={{ margin: '5px 0', width: '100%' }} />
+                    <IssueBlog params={params} session={getUserId} />
+                </Box>
 
-            </Box>
-
-            {session && (<Box>
-                <Flex direction={'column'} gap={'4'}>
-                    <StatusSelect issueStatus={issue} />
-
-                    <AssigneeSelect issue={issue} />
-                    <EditissueButton issueId={issue.id} />
-                    <DeleteIssueButton issueId={issue.id} />
-
-
-                </Flex>
-
-            </Box>)}
+                {session && (<Box>
+                    <Flex direction={'column'} gap={'4'}>
+                        <StatusSelect issueStatus={issue} />
+                        <AssigneeSelect issue={issue} />
+                        <EditissueButton issueId={issue.id} />
+                        <DeleteIssueButton issueId={issue.id} />
 
 
-        </Grid>
+                    </Flex>
+
+                </Box>)}
+
+
+
+            </Grid>
+        </Container>
     )
 }
 

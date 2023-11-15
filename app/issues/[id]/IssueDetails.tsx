@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown'
 
 const IssueDetails = ({issue}:{issue:Issue}) => {
     return (
-        <div> 
+        <div className=' max-w-4xl'> 
             <Heading >{issue.title}</Heading>
             <Flex className=' space-x-3 my-2'>
                 <IssueStatusBadge status={issue.status} />

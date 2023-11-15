@@ -80,9 +80,9 @@ model Comment {
   id     Int    @id @default(autoincrement())
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  content   String
+  content   String    @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   issueId   Int // This field is used to establish the relationship with the Issue model
-  issue     Issue    @relation(fields: [issueId], references: [id])
+  issue     Issue    @relation(fields: [issueId], references: [id],onDelete: Cascade)
 }
