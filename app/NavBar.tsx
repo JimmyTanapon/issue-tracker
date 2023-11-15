@@ -10,8 +10,8 @@ import {Skeleton} from '@/app/components'
 
 const NavBar = () => {
 
-    const { status, data: session } = useSession()
-    console.log(session?.user?.email)
+
+
 
     return (
         <nav className='   border-b mb-5 px-5  h-14  py-3  '>
