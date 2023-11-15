@@ -22,16 +22,16 @@ const BlogComment = async ({ issueId }: { issueId: number }) => {
                 :''
             }>
                 { blogs.map((blog) => (
-                    <div key={blog.id} className=' m-5  '>
-                        <Card size="2" className='prose w-full h-32 '  >
+                    
+                        <Card size="2" className='prose w-full h-32 ' key={blog.id} >
                             <Box mb={'2'}>
                                 <Flex align={'center'} gap={'2'}>
                                     <Avatar src={blog.user.image!}
                                         fallback='?'
-                                        size={'2'}
+                                        size={'1'}
                                         radius='full'
                                     />
-                                    <Heading size={'2'}>{blog.user.name}</Heading>
+                                    <Heading size={'1'}>{blog.user.name}</Heading>
                                 </Flex>
                             </Box>
                             <Separator className="SeparatorRoot" style={{ margin: '5px 0', width: '100%' }} />
@@ -42,7 +42,7 @@ const BlogComment = async ({ issueId }: { issueId: number }) => {
                             </Box>
                         </Card>
     
-                    </div>
+           
                 ))}
             </div>
         </div>
