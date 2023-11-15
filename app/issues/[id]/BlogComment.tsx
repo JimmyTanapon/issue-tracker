@@ -23,19 +23,20 @@ const BlogComment = async ({ issueId }: { issueId: number }) => {
             }>
                 { blogs.map((blog) => (
                     
-                        <Card size="2" className='prose w-full h-32 ' key={blog.id} >
-                            <Box mb={'2'}>
+                        <Card size="2" className='prose w-full h-32 ' key={blog.id} mt={'3'} >
+                            <Box >
                                 <Flex align={'center'} gap={'2'}>
                                     <Avatar src={blog.user.image!}
                                         fallback='?'
                                         size={'1'}
                                         radius='full'
                                     />
-                                    <Heading size={'1'}>{blog.user.name}</Heading>
+                                 <p className=' font-medium text-sm'>  {blog.user.name}</p >
                                 </Flex>
+                                <Separator className="SeparatorRoot" style={{ margin: '2px 0', width: '100%' }} />
+
                             </Box>
-                            <Separator className="SeparatorRoot" style={{ margin: '5px 0', width: '100%' }} />
-                            <Box mt={'4'}>
+                            <Box mt={'2'}>
                                 <Text as="p" size="3" color='red'>
                                     {blog.content}
                                 </Text>

@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={inter.variable}>
         <QueryClientProvider>
           <AuthProvider>
-            <Theme accentColor="mint"
+            <Theme accentColor="cyan"
               grayColor="gray"
               panelBackground="solid"
               scaling="100%"
